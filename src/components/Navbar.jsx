@@ -43,11 +43,18 @@ const Navbar = () => {
               
               if (section && window.__a1ScrollEl) {
                 const start = window.__a1ScrollEl.scrollTop;
-                const rect = section.getBoundingClientRect();
                 
-                // rect.top is the exact pixel distance from the top of the screen right now.
-                // Subtract 100px so it sits perfectly comfortably under the transparent navbar.
-                const end = start + rect.top - 100;
+                // Deterministic Absolute Position calculation climbing the DOM tree.
+                // This ignores camera lag and 3D offset entirely.
+                let absoluteTop = 0;
+                let currentEl = section;
+                while (currentEl) {
+                  absoluteTop += currentEl.offsetTop;
+                  currentEl = currentEl.offsetParent;
+                }
+                
+                // Subtract 100px for the navbar clearace
+                const end = absoluteTop - 100;
                 
                 const duration = 1500; // ms
                 const startTime = performance.now();
