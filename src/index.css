@@ -24,10 +24,6 @@
   -webkit-font-smoothing: antialiased;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 body {
   background-color: var(--bg-dark);
   color: var(--text-main);
@@ -49,13 +45,12 @@ h1, h2, h3, h4, h5, h6 {
   width: 100vw;
   height: 100vh;
   z-index: -1;
-  pointer-events: auto; /* Changed from none to allow ScrollControls to work */
+  pointer-events: none;
 }
 
 .content-layer {
   position: relative;
   z-index: 1;
-  pointer-events: auto;
 }
 
 section {

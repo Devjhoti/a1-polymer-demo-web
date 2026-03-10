@@ -100,12 +100,18 @@ const Hero = () => {
               {slides[current].tag}
             </motion.p>
             
+            <img 
+              src="/logo.png" 
+              alt="A1 Polymer Logo" 
+              style={{ height: '60px', marginBottom: '1.5rem', filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.5))' }}
+            />
+            
             <h1 
               dangerouslySetInnerHTML={{ __html: slides[current].title }}
               style={{ 
-                fontSize: 'clamp(3rem, 12vw, 8rem)', 
+                fontSize: 'clamp(2.5rem, 8vw, 5rem)', 
                 fontWeight: 900, 
-                lineHeight: 0.85, 
+                lineHeight: 1, 
                 marginBottom: '2rem',
                 textShadow: '0 10px 30px rgba(0,0,0,0.5)'
               }} 
@@ -164,12 +170,20 @@ const Hero = () => {
         {slides.map((_, i) => (
           <div 
             key={i} 
+            onClick={() => setCurrent(i)}
             style={{ 
               height: '4px', 
               width: i === current ? '80px' : '30px', 
               background: i === current ? 'var(--primary)' : 'rgba(255,255,255,0.2)',
-              transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)'
+              transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
+              cursor: 'pointer'
             }} 
+            onMouseEnter={(e) => {
+              if (i !== current) e.currentTarget.style.background = 'rgba(255,255,255,0.5)';
+            }}
+            onMouseLeave={(e) => {
+              if (i !== current) e.currentTarget.style.background = 'rgba(255,255,255,0.2)';
+            }}
           />
         ))}
       </div>

@@ -45,22 +45,6 @@ const Products = () => {
           </div>
           
           <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
-            <button 
-              onClick={() => setShowModal(true)}
-              className="glass"
-              style={{
-                padding: '1rem 2rem',
-                color: 'white',
-                border: '1px solid var(--primary)',
-                cursor: 'pointer',
-                fontWeight: 700,
-                fontSize: '0.8rem',
-                letterSpacing: '1px'
-              }}
-            >
-              SEE ALL PRODUCTS
-            </button>
-
             <div className="glass" style={{ display: 'flex', padding: '0.5rem', borderRadius: '50px' }}>
               {['household', 'industrial'].map((cat) => (
                 <button
@@ -217,11 +201,14 @@ const Products = () => {
               if (position > products.length / 2) position -= products.length;
 
               const isCenter = position === 0;
-              const xPos = position * 450;
-              const zPos = isCenter ? 0 : -300;
-              const rotationY = position * -35;
-              const scale = isCenter ? 1 : 0.8;
-              const opacity = Math.abs(position) > 1 ? 0 : 1;
+              const absPos = Math.abs(position);
+              
+              const xPos = position * 300;
+              const zPos = -absPos * 250;
+              const rotationY = position * -25;
+              const scale = 1 - (absPos * 0.15);
+              const opacity = absPos > 2 ? 0 : 1 - (absPos * 0.1);
+              const zIndex = 10 - absPos;
 
               return (
                 <motion.div
@@ -233,7 +220,7 @@ const Products = () => {
                     z: zPos,
                     rotateY: rotationY,
                     scale,
-                    zIndex: isCenter ? 10 : 1
+                    zIndex
                   }}
                   whileHover={isCenter ? { scale: 1.05, y: -10 } : {}}
                   onClick={() => setActiveIdx(idx)}
@@ -305,6 +292,34 @@ const Products = () => {
               style={{ padding: '1rem', color: 'white', border: 'none', cursor: 'pointer' }}
             >
               →
+            </button>
+          </div>
+
+          {/* See All Products Button */}
+          <div style={{ position: 'absolute', bottom: '-120px', display: 'flex', justifyContent: 'center', width: '100%' }}>
+            <button 
+              onClick={() => setShowModal(true)}
+              className="glass"
+              style={{
+                padding: '1.2rem 3rem',
+                color: 'var(--primary)',
+                border: '1px solid var(--primary)',
+                cursor: 'pointer',
+                fontWeight: 800,
+                fontSize: '0.9rem',
+                letterSpacing: '2px',
+                transition: '0.3s'
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.background = 'var(--primary)';
+                e.target.style.color = 'white';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.background = 'transparent';
+                e.target.style.color = 'var(--primary)';
+              }}
+            >
+              SEE ALL PRODUCTS
             </button>
           </div>
         </div>

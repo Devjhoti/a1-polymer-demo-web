@@ -6,6 +6,15 @@ import Hero from '../Sections/Hero';
 import Products from '../Sections/Products';
 import Projects from '../Sections/Projects';
 import News from '../Sections/News';
+import { useScroll } from '@react-three/drei';
+
+const ScrollManager = () => {
+  const scroll = useScroll();
+  React.useEffect(() => {
+    window.__a1ScrollEl = scroll.el;
+  }, [scroll]);
+  return null;
+};
 
 const Scene = () => {
   return (
@@ -23,6 +32,7 @@ const Scene = () => {
         
         <Suspense fallback={null}>
           <ScrollControls pages={5} damping={0.2}>
+            <ScrollManager />
             <Pipe />
             
             <Scroll html>

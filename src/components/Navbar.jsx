@@ -4,8 +4,8 @@ import { motion } from 'framer-motion';
 const Navbar = () => {
   return (
     <motion.nav 
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       style={{
         position: 'fixed',
@@ -23,7 +23,12 @@ const Navbar = () => {
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-        <img src="/logo.png" alt="A1 Polymer" style={{ height: '40px' }} />
+        <motion.img 
+          layoutId="main-logo"
+          src="/logo.png" 
+          alt="A1 Polymer" 
+          style={{ height: '40px' }} 
+        />
       </div>
 
       <div style={{ display: 'flex', gap: '3rem' }}>
@@ -33,22 +38,13 @@ const Navbar = () => {
             href={`#${item.toLowerCase()}`}
             onClick={(e) => {
               e.preventDefault();
-              const targetId = item.toLowerCase();
-              const el = document.getElementById(targetId);
-              if (el) {
-                // Find the scrollable container created by ScrollControls
-                // It's the parent of the sections inside <Scroll html>
-                const container = el.closest('.content-layer')?.parentElement;
-                
-                if (container) {
-                  container.scrollTo({
-                    top: el.offsetTop,
-                    behavior: 'smooth'
-                  });
-                } else {
-                  // Fallback for standard behavior
-                  el.scrollIntoView({ behavior: 'smooth' });
-                }
+              const pageIndices = { products: 1, projects: 2, news: 3, contact: 4 };
+              const targetPage = pageIndices[item.toLowerCase()];
+              if (targetPage !== undefined && window.__a1ScrollEl) {
+                window.__a1ScrollEl.scrollTo({ 
+                  top: targetPage * window.innerHeight, 
+                  behavior: 'smooth' 
+                });
               }
             }}
             style={{ 
