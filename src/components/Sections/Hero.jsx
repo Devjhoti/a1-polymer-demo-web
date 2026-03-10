@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { MessageCircle } from 'lucide-react';
 
 const slides = [
   {
@@ -12,17 +13,17 @@ const slides = [
     tag: "UNCOMPROMISING QUALITY",
     title: "DESIGNED FOR A <br/> <span style='color:var(--primary)'>CENTURY</span> OF USE",
     description: "Our advanced German technology ensures durability that lasts up to 100 years. Guaranteed reliability in every pipe.",
-    video: "https://res.cloudinary.com/djqsohuls/video/upload/v1773146482/0_Abstract_Geometric_3840X2160_pso30s.mp4"
+    video: "https://res.cloudinary.com/djqsohuls/video/upload/v1773170879/factory_v69hw2.mp4"
   },
   {
     tag: "NATIONAL PRIDE",
     title: "BUILDING THE <br/> NATION'S ARTERIES",
     description: "From Mega-Projects to Household plumbing, A1 Polymer is the backbone of Bangladesh's modern infrastructure.",
-    video: "https://res.cloudinary.com/djqsohuls/video/upload/v1773146482/0_Abstract_Geometric_3840X2160_pso30s.mp4"
+    video: "https://res.cloudinary.com/djqsohuls/video/upload/v1773170904/city_skyline_wxa9jr.mp4"
   }
 ];
 
-const Hero = () => {
+const Hero = ({ setForceChatOpen }) => {
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {
@@ -153,6 +154,40 @@ const Hero = () => {
                 OUR LEGACY
               </button>
             </div>
+            
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}>
+              <button 
+                onClick={() => setForceChatOpen(true)}
+                className="glass"
+                style={{ 
+                  marginTop: '1.5rem',
+                  padding: '1rem 2.5rem', 
+                  color: 'white',
+                  background: 'rgba(255,255,255,0.05)',
+                  border: '1px solid rgba(255,255,255,0.2)',
+                  fontSize: '0.8rem',
+                  fontWeight: 800,
+                  letterSpacing: '1px',
+                  cursor: 'pointer',
+                  borderRadius: '50px',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.8rem',
+                  transition: '0.3s'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = 'var(--primary)';
+                  e.currentTarget.style.boxShadow = '0 0 15px rgba(227, 30, 36, 0.3)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
+              >
+                <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#00ff88', boxShadow: '0 0 10px #00ff88' }} />
+                CHAT WITH AI
+              </button>
+            </motion.div>
           </motion.div>
         </AnimatePresence>
       </div>

@@ -37,7 +37,7 @@ const DynamicTitle = () => {
   return null;
 };
 
-const Scene = () => {
+const Scene = ({ setForceChatOpen }) => {
   return (
     <div className="canvas-container">
       <Canvas 
@@ -59,7 +59,7 @@ const Scene = () => {
             
             <Scroll html>
               <div className="content-layer" style={{ width: '100vw' }}>
-                <Hero />
+                <Hero setForceChatOpen={setForceChatOpen} />
                 <Products />
                 <Projects />
                 <News />
