@@ -43,8 +43,12 @@ const Navbar = () => {
               
               if (section && window.__a1ScrollEl) {
                 const start = window.__a1ScrollEl.scrollTop;
-                // Add a small 20px buffer so the section isn't hitting the absolute top pixel
-                const end = section.offsetTop - 20; 
+                const rect = section.getBoundingClientRect();
+                
+                // rect.top is the exact pixel distance from the top of the screen right now.
+                // Subtract 100px so it sits perfectly comfortably under the transparent navbar.
+                const end = start + rect.top - 100;
+                
                 const duration = 1500; // ms
                 const startTime = performance.now();
 
