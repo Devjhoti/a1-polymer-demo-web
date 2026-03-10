@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { Canvas } from '@react-three/fiber';
+import { Canvas, useFrame } from '@react-three/fiber';
 import { ScrollControls, Scroll, Environment, Float, Preload } from '@react-three/drei';
 import Pipe from './Pipe';
 import Hero from '../Sections/Hero';
@@ -13,6 +13,27 @@ const ScrollManager = () => {
   React.useEffect(() => {
     window.__a1ScrollEl = scroll.el;
   }, [scroll]);
+  return null;
+};
+
+const DynamicTitle = () => {
+  const scroll = useScroll();
+  
+  useFrame(() => {
+    if (!scroll) return;
+    const offset = scroll.offset; // 0 to 1
+    
+    let title = "A1 Polymer | Engineering the Flow of Progress";
+    if (offset >= 0.15 && offset < 0.35) title = "A1 Polymer | Quality Products";
+    else if (offset >= 0.35 && offset < 0.55) title = "A1 Polymer | Landmark Achievements";
+    else if (offset >= 0.55 && offset < 0.75) title = "A1 Polymer | News Stream";
+    else if (offset >= 0.75) title = "A1 Polymer | Estd 2006";
+
+    if (document.title !== title) {
+      document.title = title;
+    }
+  });
+  
   return null;
 };
 
@@ -33,6 +54,7 @@ const Scene = () => {
         <Suspense fallback={null}>
           <ScrollControls pages={5} damping={0.2}>
             <ScrollManager />
+            <DynamicTitle />
             <Pipe />
             
             <Scroll html>
