@@ -6,6 +6,8 @@ import Hero from '../Sections/Hero';
 import Products from '../Sections/Products';
 import Projects from '../Sections/Projects';
 import News from '../Sections/News';
+import Contact from '../Sections/Contact';
+import Footer from '../Sections/Footer';
 import { useScroll } from '@react-three/drei';
 
 const ScrollManager = () => {
@@ -52,7 +54,7 @@ const Scene = ({ setForceChatOpen }) => {
         <pointLight position={[10, 10, 10]} intensity={1} />
         
         <Suspense fallback={null}>
-          <ScrollControls pages={5} damping={0.2}>
+          <ScrollControls pages={5.6} damping={0.2}>
             <ScrollManager />
             <DynamicTitle />
             <Pipe />
@@ -64,12 +66,10 @@ const Scene = ({ setForceChatOpen }) => {
                 <Projects />
                 <News />
                 
-                <section id="contact" style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <div className="glass" style={{ padding: '4rem', textAlign: 'center' }}>
-                    <h2 style={{ fontSize: '3rem', marginBottom: '1rem' }}>Ready for a Century?</h2>
-                    <p style={{ color: 'var(--text-muted)' }}>A1 Polymer - Quality No. 1 since 2006</p>
-                  </div>
-                </section>
+                <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', justifyContent: 'space-between' }}>
+                  <Contact />
+                  <Footer />
+                </div>
               </div>
             </Scroll>
             
