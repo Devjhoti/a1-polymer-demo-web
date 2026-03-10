@@ -38,13 +38,30 @@ const Navbar = () => {
             href={`#${item.toLowerCase()}`}
             onClick={(e) => {
               e.preventDefault();
-              const pageIndices = { products: 1, projects: 2, news: 3, contact: 4 };
-              const targetPage = pageIndices[item.toLowerCase()];
-              if (targetPage !== undefined && window.__a1ScrollEl) {
-                window.__a1ScrollEl.scrollTo({ 
-                  top: targetPage * window.innerHeight, 
-                  behavior: 'smooth' 
-                });
+              const sectionId = item.toLowerCase();
+              const section = document.getElementById(sectionId);
+              
+              if (section && window.__a1ScrollEl) {
+                const start = window.__a1ScrollEl.scrollTop;
+                // Add a small 20px buffer so the section isn't hitting the absolute top pixel
+                const end = section.offsetTop - 20; 
+                const duration = 1500; // ms
+                const startTime = performance.now();
+
+                // Advanced ease-in-out function for cinematic feel
+                const easeInOutQuart = (t) => t < 0.5 ? 8 * t * t * t * t : 1 - Math.pow(-2 * t + 2, 4) / 2;
+
+                const animateScroll = (currentTime) => {
+                  const elapsed = currentTime - startTime;
+                  const progress = Math.min(elapsed / duration, 1);
+                  
+                  window.__a1ScrollEl.scrollTop = start + (end - start) * easeInOutQuart(progress);
+                  
+                  if (progress < 1) {
+                    requestAnimationFrame(animateScroll);
+                  }
+                };
+                requestAnimationFrame(animateScroll);
               }
             }}
             style={{ 
