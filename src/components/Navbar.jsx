@@ -27,10 +27,30 @@ const Navbar = () => {
       </div>
 
       <div style={{ display: 'flex', gap: '3rem' }}>
-        {['Products', 'Projects', 'Innovation', 'News', 'Contact'].map((item) => (
+        {['Products', 'Projects', 'News', 'Contact'].map((item) => (
           <a 
             key={item} 
             href={`#${item.toLowerCase()}`}
+            onClick={(e) => {
+              e.preventDefault();
+              const targetId = item.toLowerCase();
+              const el = document.getElementById(targetId);
+              if (el) {
+                // Find the scrollable container created by ScrollControls
+                // It's the parent of the sections inside <Scroll html>
+                const container = el.closest('.content-layer')?.parentElement;
+                
+                if (container) {
+                  container.scrollTo({
+                    top: el.offsetTop,
+                    behavior: 'smooth'
+                  });
+                } else {
+                  // Fallback for standard behavior
+                  el.scrollIntoView({ behavior: 'smooth' });
+                }
+              }
+            }}
             style={{ 
               color: 'white', 
               textDecoration: 'none', 

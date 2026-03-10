@@ -32,7 +32,7 @@ const Scene = () => {
                 <Projects />
                 <News />
                 
-                <section style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <section id="contact" style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <div className="glass" style={{ padding: '4rem', textAlign: 'center' }}>
                     <h2 style={{ fontSize: '3rem', marginBottom: '1rem' }}>Ready for a Century?</h2>
                     <p style={{ color: 'var(--text-muted)' }}>A1 Polymer - Quality No. 1 since 2006</p>
